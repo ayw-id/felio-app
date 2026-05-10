@@ -1,0 +1,194 @@
+{
+  "general": {
+    "backToTop": "Back to top"
+  },
+  "navbar": {
+    "feature": {
+      "title": "Features",
+      "1": {
+        "subtitle": "Create an E-commerce Website, Business Profile, Landing Page, and Link-in-bio"
+      },
+      "2": {
+        "subtitle": "Manage Products, Stock, Manage Orders And Shipping"
+      }
+    },
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "support": "Help",
+    "login": "Login"
+  },
+  "home": {
+    "hero": {
+      "header": {
+        "1": "Your All-in-One",
+        "2": "Growth Platform",
+        "3": "for Modern Businesses"
+      },
+      "efficientlyHandlingBusiness": "Manage your business more efficiently, reach more buyers, improve agent and reseller performance, all on one platform",
+      "startNow": "Start Now",
+      "efficient": {
+        "1": "One Platform To",
+        "2": "Deliver",
+        "3": "Exceptional Results"
+      },
+      "innovativeFeature": {
+        "title": "Innovative Features",
+        "desc": "Create E-commerce, manage a reseller team, manage a marketplace, and even create invoices for services. Everything is available on one platform"
+      },
+      "budget": {
+        "title": "Allocated Budget",
+        "desc": "Why pay for features you don't use? At Felio.ID, you can activate whatever features you want to use. That way, your dashboard also looks more minimalist"
+      },
+      "intergratedSystem": {
+        "title": "Integrated System",
+        "desc": "Starting from sales channels, admin chat & marketplace, to CRM. All features integrated in one dashboard!"
+      },
+      "dataSecurity": {
+        "title": "Data Scurity",
+        "desc": "Felio.ID uses experienced third-party payments, so you don't need to worry about your data being leaked!"
+      }
+    },
+    "felioSite": {
+      "professionalWebsite": {
+        "1": "Professional Websites",
+        "2": "For",
+        "3": "Successful Business"
+      },
+      "createWebsites": {
+        "1": "Create a website for all your business needs",
+        "2": "easily and quickly."
+      },
+      "buildWebsiteBtn": "Build Your Website Now !",
+      "buildCustomerTrust": {
+        "title": "Build Customer Trust",
+        "1": "The website is part of the brand identity. Having a professional website makes it easier for your customers to trust your brand.",
+        "2": "You can create links-in-bio, landing pages, blogs, and even portfolios on Felio.ID."
+      },
+      "maximizeCreativity": {
+        "title": "Maximize Your Creativity",
+        "1": "Start with a template that suits your business, or from a blank page.",
+        "2": "With more complex web builder features, you can design your website more freely and innovatively."
+      },
+      "increaseTraffic": {
+        "title": "Increase Traffic, Increase Sales",
+        "1": "Share your website link on your social media, then monitor your traffic and customer data to find out what they want.",
+        "2": "You can also add product links, or import from #FelioStore."
+      },
+      "receivePayment": {
+        "title": "Receive Payments Without Hassle",
+        "1": "Felio.ID provides a variety of payment methods to make it easier for your customers.",
+        "2": "You simply install your products from #FelioStore, and start accepting orders."
+      },
+      "domainBrand": {
+        "title": "Your Domain, Your Brand",
+        "1": "Make your website easily recognized with a domain name that suits your business.",
+        "2": "Felio.ID provides a variety of domain extensions that you need"
+      }
+    },
+    "felioStore": {
+      "maximizeSales": {
+        "1": "Maximize Your Sales",
+        "2": "With",
+        "3": "Powerfull Online Store"
+      },
+      "buildOnlieStoreBtn": "Build Your Online Store Now !",
+      "manageBusiness": {
+        "title": "Manage Business More Efficiently",
+        "desc": "Managing stock and product variants in one place, making your work simpler and faster."
+      },
+      "serveCustomer": {
+        "title": "Make Your Customers as Comfortable as Possible",
+        "desc": "To make customers feel more comfortable shopping, provide the delivery services and payment methods they want on your website via the Felio dashboard."
+      },
+      "productPromo": {
+        "title": "The Right Way to Promote Products",
+        "desc": "You can use discounts, promo codes, special categories, and even advertisements to attract buyers to shop at your store."
+      },
+      "closerToCustomer": {
+        "title": "Closer To Your Customers",
+        "1": "Monitor your traffic and customer data to find out what they want.",
+        "2": "Also activate the Facebook pixel feature to monitor your ad performance."
+      }
+    },
+    "cta": {
+      "title": "Register Now And Start Managing Your Business",
+      "btn": "Start Now"
+    },
+    "contactUsSection": {
+      "contactUs": "Contact Us",
+      "shareYourThought": "Have questions, criticism or suggestions?",
+      "fillTheForm": "Fill in the form below, we will answer your message as soon as possible",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "company": "Company / Brand",
+      "send": "Send",
+      "question": "Your Message",
+      "successResponse": "Your request has been sent",
+      "failedResponse": "Your request failed to send"
+    },
+    "newsletter": {
+      "title": "Stay Updated with Exclusive Insights!",
+      "description": "Be the first to know about our latest features, improvements, and special offers. Join thousands of business owners who are scaling their success with us!"
+    }
+  },
+  "pricing": {
+    "general": {
+      "unlimited": "Unlimited"
+    },
+    "webBuilder": {
+      "title": "Website Builder",
+      "totalWebsite": "Number of Websites",
+      "template": "Template",
+      "onlyFreeTemplate": "Only Free Template",
+      "premiumTemplate": "Premium Template",
+      "storage": "Storage Space",
+      "bandwidth": "Bandwidth",
+      "freeDomain": "Free Domain",
+      "subDomain": "Sub-Domain",
+      "dotCom1Year": ".com (Free 1 Year)",
+      "seo": "SEO",
+      "standardOptimization": "Standard Optimization",
+      "highOptimization": "High Optimization",
+      "fullOptimization": "Full Optimization",
+      "invFeature": "Invoice Feature",
+      "disTrxFee1": "✔ (2.5% Discount Transaction Fee)",
+      "disTrxFee2": "✔ (7.5% Discount Transaction Fee)",
+      "socmedOpt": "Social Media Optimization",
+      "removeFelio": "Remove Felio Branding",
+      "googleAnalytics": "Google Analytics"
+    },
+    "ecommerce": {
+      "title": "E-Commerce",
+      "totalAdmin": "Maximum Number of Admins",
+      "productStock": "Product & Stock Management",
+      "maxProduct": "Maximum Number of Products",
+      "variantProduct": "Variant Product",
+      "preOrder": "Pre-Order Features",
+      "wholesale": "Wholesale Price",
+      "bundleProduct": "Bundle Product",
+      "specialCategory": "Special Category",
+      "discountFeature": "Discount Feature",
+      "promoCode": "Promo Code",
+      "flashSale": "Flash Sale",
+      "paymentMethod": "Payment Method",
+      "disTrxFee1": "✔ (2.5% Discount Transaction Fee)",
+      "disTrxFee2": "✔ (7.5% Discount Transaction Fee)",
+      "notification": "Notification",
+      "pushNotif": "Push Notification",
+      "pushNotifEmail": "Push Notification & E-mail",
+      "pushNotifEmailSMS": "Push Notification, E-mail, & SMS",
+      "affiliate": "Affiliate Marketing",
+      "report": "Report"
+    }
+  },
+  "footer": {
+    "newsletter": "E-mail Subscription",
+    "dontMissImportantInfo": "Don't miss important information from",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "article": "Blog",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms & Condition"
+  }
+}

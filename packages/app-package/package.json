@@ -1,0 +1,21 @@
+{
+  "name": "@felio/package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@nuxt/kit": "^3.11.1"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.12.3",
+    "@typescript-eslint/parser": "^6.21.0",
+    "nuxt-config": "^1.0.1"
+  }
+}

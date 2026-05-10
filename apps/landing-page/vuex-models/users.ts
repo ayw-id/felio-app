@@ -1,0 +1,21 @@
+// import { type Fields, Model } from "@vuex-orm/core";
+
+// import posts from "./posts";
+
+// export default class user extends Model {
+//   // This is the name used as module name of the Vuex Store.
+//   static entity = "users";
+//   static primaryKey = "id";
+
+//   // List of all fields (schema) of the post model. `this.attr` is used
+//   // for the generic field type. The argument is the default value.
+//   static fields(): Fields {
+//     return {
+//       id: this.attr(null),
+//       name: this.attr(""),
+//       email: this.attr(""),
+//       age: this.number(27).nullable(),
+//       posts: this.hasMany(posts, "post_id"),
+//     };
+//   }
+// }

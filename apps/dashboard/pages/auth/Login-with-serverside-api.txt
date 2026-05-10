@@ -1,0 +1,319 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import AppConfig from "@/layouts/AppConfig.vue";
+import { storageNames, countryCode } from "~/utils/constants";
+import type { ProderT } from "universal-social-auth/dist/providers";
+// Button Method 1
+import { Providers } from "universal-social-auth";
+import { useToast } from "primevue/usetoast";
+import { validateRegistration, validateLogin } from "./authValidation";
+import { showCustomToast, reformatPhoneNumber } from "~/utils/utilsFunction";
+
+const runtimeConfig = useRuntimeConfig();
+const toast = useToast();
+const route = useRoute();
+
+const inputLoginState = ref({
+  email: "",
+  password: "",
+  rememberMe: false,
+});
+const isLoading = ref(false);
+
+const defaultCountryCode: countryCodeType | undefined = countryCode.find(
+  (data) => data.code === "ID"
+);
+
+const inputRegisterState = ref({
+  name: "",
+  email: "",
+  countryCode: defaultCountryCode,
+  phone: "",
+  password: "",
+  password1: "",
+  rememberMe: false,
+});
+
+const loginPage = ref(true);
+
+const { $Oauth } = useNuxtApp();
+
+const logoUrl = computed(() => {
+  return `${runtimeConfig.public.baseUrl}/layout/images/favicon.png`;
+});
+
+const getdataGuest = computed(() => {
+  const guest = localStorage.getItem(storageNames.cvr as string);
+  if (guest && guest !== "" && guest !== "null" && guest !== 'undefined') {
+    return JSON.parse(guest);
+  }
+  return null;
+});
+
+const checkToken = (): void => {
+  setTimeout(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const token = localStorage.getItem(storageNames.sellerToken);
+    console.warn(`Token ${token ? "exists" : ""}`);
+    if (token) {
+      window.location.href = "https://felio.id/app/";
+    } else {
+      checkToken();
+    }
+  }, 3000);
+};
+
+const processReponse = async (
+  provider: string,
+  code: string
+): Promise<void> => {
+  isLoading.value = true;
+  const dataGuest = getdataGuest;
+
+  $fetch('/api/auth/signInWithSocial', {
+    method: 'POST',
+    body: {
+      provider,
+      code,
+      guestToken: dataGuest.value === null ? "" : (dataGuest.value.token as string)
+    }
+  })
+  .then(async (data) => {
+    if (data.success) {
+      // Refresh the session on client-side and redirect to the home page
+      await refreshSession()
+      await navigateTo('/')
+    } else {
+      showCustomToast(toast, data.msg as string);
+    }
+  })
+  .catch(() => {
+    alert('Bad response from server')
+  });
+};
+
+const authProvider = (provider: string): void => {
+  checkToken();
+
+  const ProData = Providers[provider] as ProderT;
+  $Oauth
+    .authenticate(provider, ProData)
+    .then(async (response) => {
+      if (response.code) {
+        await processReponse(provider, response.code as string);
+      }
+    })
+    .catch((error: Error) => {
+      console.log({ error });
+    });
+};
+
+onMounted(async () => {
+  const provider = route.query.provider;
+  const code = route.query.code;
+  if (provider && code) {
+    await processReponse(provider as string, code as string);
+  }
+});
+
+definePageMeta({
+  layout: false,
+});
+
+const register = async (): Promise<void> => {
+  if (!isLoading.value) {
+    const validation = validateRegistration(inputRegisterState.value);
+    if (validation) {
+      toast.add(validation);
+    } else {
+      isLoading.value = true;
+      const dataGuest = getdataGuest;
+
+      $fetch('/api/auth/register', {
+        method: 'POST',
+        body: {
+          ...inputRegisterState.value,
+          callingCode: (inputRegisterState.value.countryCode?.dialCode || "") as string,
+          phone: reformatPhoneNumber(inputRegisterState.value.phone || "", inputRegisterState.value.countryCode),
+          guestToken: dataGuest.value === null ? "" : (dataGuest.value.token as string)
+        }
+      })
+      .then(async (data) => {
+        if (data.success) {
+          // Refresh the session on client-side and redirect to the home page
+          await refreshSession()
+          await navigateTo('/')
+        } else {
+          showCustomToast(toast, data.msg as string);
+        }
+      })
+      .catch(() => {
+        alert('Bad response from server')
+      });
+    }
+  }
+};
+
+const { fetch: refreshSession } = useUserSession()
+
+const login = async (): Promise<void> => {
+  if (!isLoading.value) {
+    const validation = validateLogin(inputLoginState.value);
+    if (validation) {
+      toast.add(validation);
+    } else {
+      isLoading.value = true;
+
+      const dataGuest = getdataGuest;
+
+      $fetch('/api/auth/login', {
+        method: 'POST',
+        body: {
+          ...inputLoginState.value,
+          guestToken: dataGuest.value === null ? "" : (dataGuest.value.token as string)
+        }
+      })
+      .then(async (data) => {
+        if (data.success) {
+          // Refresh the session on client-side and redirect to the home page
+          await refreshSession()
+          await navigateTo('/')
+        } else {
+          showCustomToast(toast, data.msg as string);
+        }
+      })
+      .catch(() => {
+        alert('Bad response from server')
+      });
+    }
+  }
+}
+</script>
+
+<template>
+  <div
+    v-if="isLoading"
+    class="text-center"
+    style="height: 400px; align-content: center"
+  >
+    <ProgressSpinner />
+  </div>
+  <div
+    v-else
+    class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
+  >
+    <Toast />
+    <div class="flex flex-column align-items-center justify-content-center">
+      <Avatar
+        :image="logoUrl"
+        class="mb-5 flex-shrink-0"
+        style="width: 80px; height: 80px"
+        shape="circle"
+      />
+      <div
+        style="
+          border-radius: 56px;
+          padding: 0.3rem;
+          background: linear-gradient(
+            180deg,
+            var(--primary-color) 10%,
+            rgba(33, 150, 243, 0) 30%
+          );
+        "
+      >
+        <div
+          class="w-full surface-card py-8 px-5 sm:px-8"
+          style="border-radius: 53px"
+        >
+          <!-- <div class="text-center mb-5">
+            <img
+              src="/demo/images/login/avatar.png"
+              alt="Image"
+              height="50"
+              class="mb-3"
+            />
+            <div class="text-900 text-3xl font-medium mb-3">
+              Welcome, Isabel!
+            </div>
+            <span class="text-600 font-medium">Sign in to continue</span>
+          </div> -->
+
+          <AuthLogin
+            v-if="loginPage"
+            v-model:email="inputLoginState.email"
+            v-model:password="inputLoginState.password"
+            v-model:rememberMe="inputLoginState.rememberMe"
+          ></AuthLogin>
+
+          <AuthRegister
+            v-else
+            v-model:name="inputRegisterState.name"
+            v-model:countryCode="inputRegisterState.countryCode"
+            v-model:phone="inputRegisterState.phone"
+            v-model:email="inputRegisterState.email"
+            v-model:password="inputRegisterState.password"
+            v-model:password1="inputRegisterState.password1"
+            v-model:rememberMe="inputRegisterState.rememberMe"
+          ></AuthRegister>
+
+          <Button
+            :label="loginPage ? 'Sign In' : 'Register'"
+            class="w-full p-3 text-xl"
+            @click="loginPage ? login() : register()"
+          ></Button>
+
+          <div class="text-center mt-4">
+            <label class="block text-900 text-3xl text-center mb-2"
+              >Or {{ loginPage ? "sign in" : "register" }} with</label
+            >
+            <Button
+              icon="pi pi-google"
+              label="Gmail"
+              raised
+              severity="warning"
+              class="mb-2 mt-4 mr-2 text-lg self-center content-center"
+              @click="authProvider('google')"
+            ></Button>
+            <Button
+              icon="pi pi-facebook"
+              label="Facebook"
+              raised
+              severity="info"
+              class="mb-2 mt-4 mr-2 text-lg self-center content-center"
+              @click="authProvider('facebook')"
+            ></Button>
+          </div>
+
+          <div class="text-center mt-4">
+            <Button
+              style="color: black"
+              text
+              class="font-medium no-underline text-lg ml-2 text-right cursor-pointer"
+              @click="loginPage = !loginPage"
+            >
+              {{
+                loginPage
+                  ? "Don't have an account yet? Register "
+                  : "Have an account? Sign in "
+              }}<b class="ml-1" style="color: var(--primary-color)">here</b>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <AppConfig simple />
+  <Toast />
+</template>
+
+<style scoped>
+.pi-eye {
+  transform: scale(1.6);
+  margin-right: 1rem;
+}
+.pi-eye-slash {
+  transform: scale(1.6);
+  margin-right: 1rem;
+}
+</style>

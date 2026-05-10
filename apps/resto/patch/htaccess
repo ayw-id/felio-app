@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /resto/
+
+  # Allow access to index.html directly
+  RewriteRule ^index\.html$ - [L]
+
+  # Skip rewriting for real files and directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Optional: Enforce trailing slash
+  # RewriteCond %{REQUEST_URI} !/$
+  # RewriteRule ^(.*)$ /$1/ [R=301,L]
+
+  # Rewrite everything else to index.html (SPA entry point)
+  RewriteRule . /resto/index.html [L]
+</IfModule>

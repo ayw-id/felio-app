@@ -1,0 +1,194 @@
+{
+  "general": {
+    "backToTop": "Kembali Ke Atas"
+  },
+  "navbar": {
+    "feature": {
+      "title": "Fitur",
+      "1": {
+        "subtitle": "Bikin Website E-commerce, Profile Bisnis, Landing Page, Dan Link-in-bio"
+      },
+      "2": {
+        "subtitle": "Atur Produk, Stok, Kelola Pesanan, Dan Pengiriman"
+      }
+    },
+    "pricing": "Harga",
+    "blog": "Artikel",
+    "support": "Bantuan",
+    "login": "Masuk"
+  },
+  "home": {
+    "hero": {
+      "header": {
+        "1": "Platform Inovatif",
+        "2": "Tingkatkan Level",
+        "3": "Bisnis Kamu"
+      },
+      "efficientlyHandlingBusiness": "Kelola bisnis lebih efisien, jangkau lebih banyak pembeli, tingkatkan performa agen dan reseller, semua dalam satu platform",
+      "startNow": "Mulai Sekarang",
+      "efficient": {
+        "1": "Efisien Dan Mudah",
+        "2": "Dalam",
+        "3": "Satu Platform"
+      },
+      "innovativeFeature": {
+        "title": "Fitur Inovatif",
+        "desc": "Bikin E-commerce, kelola tim reseller, kelola marketplace, hingga bikin invoice untuk jasa. Semua sudah tersedia dalam satu platform"
+      },
+      "budget": {
+        "title": "Budget Teralokasi",
+        "desc": "Ngapain bayar fitur yang tidak kamu pakai?. Di Felio.ID, kamu bisa aktifkan fitur apa saja yang ingin kamu pakai. Dengan begitu, dashboardmu juga terlihat lebih minimalis"
+      },
+      "intergratedSystem": {
+        "title": "System Terintegrasi",
+        "desc": "Mulai dari sales channel, admin chat & marketplace, hingga CRM. Semua fitur terintegrasi dalam satu dashboard !"
+      },
+      "dataSecurity": {
+        "title": "Aman Bertransaksi",
+        "desc": "Felio.ID menggunakan third-party pembayaran yang berpengalaman, jadi Kamu tidak perlu khawatir data kamu bocor !"
+      }
+    },
+    "felioSite": {
+      "professionalWebsite": {
+        "1": "Website Professional",
+        "2": "Untuk",
+        "3": "Sukses Berbisnis"
+      },
+      "createWebsites": {
+        "1": "Bikin website untuk semua kebutuhan bisnismu",
+        "2": "dengan mudah dan cepat."
+      },
+      "buildWebsiteBtn": "Bikin Websitemu Sekarang !",
+      "buildCustomerTrust": {
+        "title": "Bangun Kepercayaan Pelanggan",
+        "1": "Website adalah bagian identitas brand. Memiliki website yang profesional membuat pelangganmu makin mudah percaya pada brandmu.",
+        "2": "Link-in-bio, landing page, blog, hingga protofolio bisa Anda buat di Felio.ID."
+      },
+      "maximizeCreativity": {
+        "title": "Maksimalkan Kreatifitasmu",
+        "1": "Mulai dengan template yang sesuai dengan bisnis Anda, atau dari halaman kosong.",
+        "2": "Dengan fitur web builder yang lebih kompleks, Anda bisa mendesain websitemu lebih leluasa dan inovatif."
+      },
+      "increaseTraffic": {
+        "title": "Tingkatkan Traffic, Tingkatkan Penjualan",
+        "1": "Bagikan link websitemu di media social yang Anda miliki, lalu pantau traffic dan data pelangganmu untuk mengetahui apa yang mereka mau.",
+        "2": "Anda juga bisa pasang link produk, atau import dari #FelioStore."
+      },
+      "receivePayment": {
+        "title": "Terima Pembayaran Tanpa Ribet",
+        "1": "Felio.ID menyediakan beragam metode pembayaran untuk memudahkan palanggan Anda.",
+        "2": "Anda cukup memasang produkmu dari #FelioStore, dan mulai terima pesanan."
+      },
+      "domainBrand": {
+        "title": "Your Domain, Your Brand",
+        "1": "Buat websitemu mudah dikenali dengan nama domain yang sesuai dengan bisnismu.",
+        "2": "Felio.ID menyediakan beragam domain extension yang Anda butuhkan"
+      }
+    },
+    "felioStore": {
+      "maximizeSales": {
+        "1": "Maksimalkan Penjualan Anda",
+        "2": "Dengan",
+        "3": "Toko Online yang Kuat"
+      },
+      "buildOnlieStoreBtn": "Bangun Toko Online Anda Sekarang!",
+      "manageBusiness": {
+        "title": "Kelola Bisnis Lebih Efisien",
+        "desc": "Pengaturan stok dan varian produk di satu tempat, bikin kerjaanmu makin simpel dan cepat."
+      },
+      "serveCustomer": {
+        "title": "Buat Pelangganmu Senyaman Mungkin",
+        "desc": "Agar pelanggan makin betah berbelanja, sediakan jasa pengiriman dan metode pembayaran yang mereka inginkan di website Anda melalui dashboard Felio."
+      },
+      "productPromo": {
+        "title": "Cara Yang Tepat Promosikan Produk",
+        "desc": "Diskon, promo code, special categories, hingga iklan bisa Anda gunakan untuk menarik pembeli untuk berbelanja di tokomu."
+      },
+      "closerToCustomer": {
+        "title": "Lebih Dekat Dengan Pelangganmu",
+        "1": "Pantau traffic dan data pelangganmu untuk mengetahui apa yang mereka mau.",
+        "2": "Aktifkan juga fitur facebook pixel untuk memantau performa iklanmu."
+      }
+    },
+    "cta": {
+      "title": "Daftar Sekarang Dan Mulai Kelola Bisnismu",
+      "btn": "Mulai Sekarang"
+    },
+    "contactUsSection": {
+      "contactUs": "Hubungi Kami",
+      "shareYourThought": "Punya pertanyaan, kritik, atau saran ?",
+      "fillTheForm": "Isi form berikut ini, kami akan menjawab pesan Anda secepatnya",
+      "name": "Nama",
+      "email": "Email",
+      "phone": "Handphone",
+      "company": "Perusahaan / Brand",
+      "send": "Kirim",
+      "question": "Pesan Anda",
+      "successResponse": "Pesan Anda telah terkirim",
+      "failedResponse": "Pesan Anda gagal dikirim"
+    },
+    "newsletter": {
+      "title": "Dapatkan Update Exclusive Dari Felio.ID",
+      "description": "Jadi yang pertama mendapatkan informasi exclusive dari Felio.ID tentang fitur terbaru, pembaharuan, dan tawaran spesial. Bergabunglah dengan ribuan pemilik bisnis yang meraih kesuksesan bersama kami!"
+    }
+  },
+  "pricing": {
+    "general": {
+      "unlimited": "Unlimited"
+    },
+    "webBuilder": {
+      "title": "Website Builder",
+      "totalWebsite": "Jumlah Website",
+      "template": "Template",
+      "onlyFreeTemplate": "Only Free Template",
+      "premiumTemplate": "Premium Template",
+      "storage": "Storage Space",
+      "bandwidth": "Bandwidth",
+      "freeDomain": "Free Domain",
+      "subDomain": "Sub-Domain",
+      "dotCom1Year": ".com (Free 1 Year)",
+      "seo": "SEO",
+      "standardOptimization": "Standard Optimization",
+      "highOptimization": "High Optimization",
+      "fullOptimization": "Full Optimization",
+      "invFeature": "Fitur Invoice",
+      "disTrxFee1": "✔ (2,5% Discount Transaction Fee)",
+      "disTrxFee2": "✔ (7,5% Discount Transaction Fee)",
+      "socmedOpt": "Social Media Optimization",
+      "removeFelio": "Remove Felio Branding",
+      "googleAnalytics": "Google Analytics"
+    },
+    "ecommerce": {
+      "title": "E-Commerce",
+      "totalAdmin": "Jumlah Maksimal Admin",
+      "productStock": "Manajemen Produk & Stok",
+      "maxProduct": "Jumlah Maksimal Produk",
+      "variantProduct": "Produk Varian",
+      "preOrder": "Fitur Pre-Order",
+      "wholesale": "Harga Grosir",
+      "bundleProduct": "Produk Bundle",
+      "specialCategory": "Kategori Spesial",
+      "discountFeature": "Fitur Diskon",
+      "promoCode": "Kode Promo",
+      "flashSale": "Flash Sale",
+      "paymentMethod": "Metode Pembayaran",
+      "disTrxFee1": "✔ (2,5% Discount Transaction Fee)",
+      "disTrxFee2": "✔ (7,5% Discount Transaction Fee)",
+      "notification": "Notifikasi",
+      "pushNotif": "Push Notification",
+      "pushNotifEmail": "Push Notification & E-mail",
+      "pushNotifEmailSMS": "Push Notification, E-mail, & SMS",
+      "affiliate": "Affiliate Marketing",
+      "report": "Laporan"
+    }
+  },
+  "footer": {
+    "newsletter": "Berlangganan E-mail",
+    "dontMissImportantInfo": "Jangan ketinggalan info penting dari",
+    "aboutUs": "Tentang Kami",
+    "contactUs": "Hubungi Kami",
+    "article": "Artikel",
+    "privacyPolicy": "Kebijakan Privasi",
+    "terms": "Syarat & Ketentuan"
+  }
+}

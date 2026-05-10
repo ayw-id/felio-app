@@ -1,0 +1,888 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model agent_level {
+  id                Int                @id @default(autoincrement())
+  id_agent_merchant Int
+  title             String             @db.VarChar(100)
+  commission        Float              @default(0)
+  status            agent_level_status @default(ACTIVE)
+  agent_total       Int                @default(0)
+  date_added        DateTime           @db.DateTime(0)
+  date_modified     DateTime           @db.DateTime(0)
+}
+
+model agent_member {
+  id            BigInt              @id @default(autoincrement())
+  id_seller     BigInt
+  status        agent_member_status
+  date_add      DateTime            @db.DateTime(0)
+  date_modified DateTime            @db.DateTime(0)
+}
+
+model agent_member_merchant {
+  id                BigInt                       @id @default(autoincrement())
+  id_agent_merchant BigInt
+  id_agent_member   BigInt
+  id_agent_level    BigInt
+  status            agent_member_merchant_status
+  date_added        DateTime                     @db.DateTime(0)
+  date_modified     DateTime                     @db.DateTime(0)
+}
+
+model agent_member_product {
+  id                          BigInt   @id @default(autoincrement())
+  id_product                  BigInt
+  id_agent_product_commission BigInt
+  id_agent_member             BigInt
+  status                      String   @default("ACTIVE")
+  date_added                  DateTime @db.DateTime(0)
+  date_modified               DateTime @db.DateTime(0)
+}
+
+model agent_merchant {
+  id               BigInt   @id @default(autoincrement())
+  id_seller        BigInt
+  id_package       Int      @db.TinyInt
+  id_package_price Int
+  merchant_code    String   @db.VarChar(255)
+  total_product    Int      @default(0)
+  is_active        Int      @default(1) @db.TinyInt
+  expired_package  DateTime @db.DateTime(0)
+  date_added       DateTime @db.DateTime(0)
+  date_modified    DateTime @db.DateTime(0)
+}
+
+model agent_package {
+  id        Int    @id @default(autoincrement())
+  name      String @db.VarChar(50)
+  code      String @db.VarChar(100)
+  is_active Int    @default(1)
+  is_hide   Int    @default(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model agent_package_prices {
+  id            BigInt                      @id @default(autoincrement())
+  id_package    BigInt
+  period        agent_package_prices_period
+  real_price    Int
+  price         Int
+  discount      Int
+  is_active     Boolean
+  date_added    DateTime                    @db.DateTime(0)
+  date_modified DateTime                    @db.DateTime(0)
+}
+
+model agent_product_commission {
+  id              BigInt                                   @id @default(autoincrement())
+  id_product      BigInt
+  id_agent_level  BigInt
+  commission_type agent_product_commission_commission_type
+  commission      Float
+  status          agent_product_commission_status          @default(ACTIVE)
+  date_added      DateTime                                 @db.DateTime(0)
+  date_modified   DateTime                                 @db.DateTime(0)
+}
+
+model agent_registration_page {
+  id               BigInt                         @id @default(autoincrement())
+  id_merchant      BigInt
+  id_agent_level   BigInt
+  status           agent_registration_page_status
+  code             String                         @db.VarChar(255)
+  requirements     String                         @db.Text
+  registration_fee Int
+  has_expired_date Int                            @default(0) @db.TinyInt
+  expired_date     DateTime                       @db.Date
+  date_added       DateTime                       @db.DateTime(0)
+  date_modified    DateTime                       @db.DateTime(0)
+}
+
+model agent_registration_page_visit {
+  id         BigInt   @id @default(autoincrement())
+  id_seller  BigInt   @default(0)
+  user_type  String
+  count      Int      @default(1)
+  date_added DateTime @db.Date
+}
+
+model builder_auth_attempts {
+  id              BigInt   @id @default(autoincrement())
+  id_builder_user BigInt
+  attempt_count   Int      @default(1)
+  start_attempt   DateTime @default(now()) @db.DateTime(0)
+  expired_attempt DateTime @db.DateTime(0)
+}
+
+model chat_message {
+  id           BigInt   @id @default(autoincrement())
+  id_chat_room BigInt
+  id_sender    BigInt
+  msg          String   @db.Text
+  reply_msg    String   @db.Text
+  files        String   @db.Text
+  timestamp    DateTime @db.DateTime(0)
+}
+
+model chat_room {
+  id            BigInt         @id @default(autoincrement())
+  id_creator    Int
+  name          String         @db.VarChar(255)
+  type          chat_room_type
+  last_message  String         @db.Text
+  last_modified DateTime       @db.DateTime(0)
+  created_at    DateTime       @db.DateTime(0)
+}
+
+model chat_room_member {
+  id           BigInt   @id @default(autoincrement())
+  id_chat_room BigInt
+  id_chat_user BigInt
+  is_banned    Int      @default(0) @db.TinyInt
+  joined_at    DateTime @db.DateTime(0)
+}
+
+model chat_user {
+  id               BigInt         @id @default(autoincrement())
+  id_user          BigInt
+  username         String         @db.VarChar(255)
+  role             chat_user_role
+  last_id_message  BigInt
+  message_modified String         @db.Text
+  last_active      DateTime       @db.DateTime(0)
+}
+
+model customer {
+  id              BigInt   @id @default(autoincrement())
+  id_seller       BigInt
+  nama            String   @db.VarChar(100)
+  email           String   @db.VarChar(100)
+  phone           String   @db.VarChar(15)
+  password        String   @db.Text
+  avatar_thumb    String   @db.Text
+  avatar_original String   @db.Text
+  tgl_created     DateTime @db.DateTime(0)
+  is_active       Int
+  email_verified  Int      @default(0)
+  phone_verified  Int      @default(0)
+}
+
+model customer_address {
+  id           BigInt   @id @default(autoincrement())
+  id_customer  BigInt
+  phone        String   @db.VarChar(15)
+  penerima     String   @db.VarChar(100)
+  id_district  Int
+  address      String   @db.Text
+  is_primary   Int
+  tgl_add      DateTime @db.DateTime(0)
+  tgl_modified DateTime @db.DateTime(0)
+}
+
+model customer_guest {
+  id         BigInt   @id @default(autoincrement())
+  user_agent String   @db.Text
+  tgl_add    DateTime @db.DateTime(0)
+}
+
+model customer_guest_login {
+  id                BigInt   @id @default(autoincrement())
+  id_customer_guest BigInt
+  id_customer       BigInt
+  tgl_last_login    DateTime @db.DateTime(0)
+}
+
+model customer_guest_visit {
+  id          BigInt @id @default(autoincrement())
+  id_guest    BigInt
+  page        String @db.Text
+  id_brand    BigInt
+  count_visit Int
+  month_visit Int
+  year_visit  Int
+}
+
+model customer_search_history {
+  id           BigInt   @id @default(autoincrement())
+  id_guest     BigInt
+  id_brand     BigInt
+  search_query String   @db.Text
+  count_search Int      @default(1)
+  date_add     DateTime @default(now()) @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model customer_verification {
+  id          BigInt @id @default(autoincrement())
+  type        String @db.VarChar(50)
+  id_customer BigInt
+  otp_code    String @db.Text
+}
+
+model cvr_guest {
+  id         Int      @id @default(autoincrement())
+  date_added DateTime @db.Date
+  is_user    Int
+}
+
+model cvr_page {
+  id         Int      @id @default(autoincrement())
+  page_name  String   @db.VarChar(100)
+  date_added DateTime @db.Date
+}
+
+model cvr_page_visit {
+  id          Int      @id @default(autoincrement())
+  id_page     Int
+  id_guest    Int
+  count_visit Int
+  is_unique   Int
+  date_added  DateTime @db.Date
+}
+
+model email_history {
+  id        BigInt   @id @default(autoincrement())
+  receiver  String   @db.Text
+  subject   String   @db.VarChar(255)
+  message   String   @db.Text
+  type      String   @db.VarChar(255)
+  send_date DateTime @db.DateTime(0)
+}
+
+model email_subscribe {
+  id        BigInt   @id @default(autoincrement())
+  email     String   @db.VarChar(100)
+  page_from String   @db.VarChar(255)
+  is_active Int      @default(1)
+  date_add  DateTime @db.DateTime(0)
+}
+
+model event_registrar {
+  id                   BigInt   @id @default(autoincrement())
+  event_name           String   @db.VarChar(100)
+  id_seller            BigInt
+  brand_address        String   @db.Text
+  brand_age            String?  @db.VarChar(100)
+  social_media         String   @db.Text
+  website              String?  @db.VarChar(100)
+  advertise_experience String   @db.Text
+  budget               Int      @default(0)
+  date_add             DateTime @default(now()) @db.DateTime(0)
+  error_log            String   @db.Text
+}
+
+model faq {
+  id               Int      @id @default(autoincrement())
+  nama             String   @db.VarChar(100)
+  email            String   @db.VarChar(100)
+  pesan            String   @db.Text
+  is_answered      Int
+  is_showed_on_web Int
+  tgl_add          DateTime @db.DateTime(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model init_version {
+  lp_testimoni Int
+  faq          Int
+  terms        Int
+  pricing      Int
+
+  @@ignore
+}
+
+model init_version_by_user {
+  id      BigInt @id @default(autoincrement())
+  id_user BigInt
+  role    String @db.VarChar(25)
+  feature String @db.VarChar(100)
+  version Int
+}
+
+model invoice {
+  id                          BigInt    @id @default(autoincrement())
+  code                        String    @db.VarChar(100)
+  status                      String    @db.VarChar(100)
+  id_seller                   BigInt
+  id_customer                 BigInt
+  id_guest                    BigInt    @default(0)
+  from_shop                   Int       @default(0)
+  id_customer_address         BigInt
+  use_shipping                Int       @default(0)
+  total_weight                Decimal   @default(0) @db.Decimal(10, 0)
+  address                     String    @db.Text
+  available_shipping_services String    @db.VarChar(255)
+  selected_shipping           String    @db.Text
+  shipping_cost               Int       @default(0)
+  id_voucher_customer         BigInt
+  total_discount_customer     Int
+  transfer_code               Int       @default(0)
+  grand_total                 Int
+  id_voucher_seller           BigInt
+  transaction_fee             Int
+  created_at                  DateTime  @db.DateTime(0)
+  modified_at                 DateTime  @db.DateTime(0)
+  due_date_order_processing   DateTime  @default(now()) @db.DateTime(0)
+  due_date                    DateTime  @db.DateTime(0)
+  is_updated                  Int       @default(0)
+  is_confirmed                Int
+  confirmed_at                DateTime? @db.DateTime(0)
+  balance                     Int
+  id_withdraw                 String    @db.Text
+}
+
+model invoice_other_price {
+  id          BigInt @id @default(autoincrement())
+  id_invoice  BigInt
+  tipe        String @db.VarChar(100)
+  nama        String @db.VarChar(100)
+  nominal     Int
+  is_discount Int    @default(0)
+}
+
+model invoice_payment {
+  id                      BigInt   @id @default(autoincrement())
+  id_invoice              BigInt
+  status                  String   @db.VarChar(20)
+  payment_method          String   @db.VarChar(255)
+  payment_code            String   @db.VarChar(100)
+  account_number          String   @db.VarChar(255)
+  phone                   String   @db.VarChar(100)
+  xendit_payment_request  String   @db.Text
+  xendit_payment_response String   @db.Text
+  request_create_payment  String   @db.Text
+  response_create_payment String   @db.Text
+  due_date                DateTime @db.DateTime(0)
+  created_at              DateTime @db.DateTime(0)
+  modified_at             DateTime @db.DateTime(0)
+  paid_at                 DateTime @db.DateTime(0)
+}
+
+model invoice_payment_error {
+  id                 BigInt                       @id @default(autoincrement())
+  id_invoice         BigInt
+  id_invoice_payment BigInt
+  description        String                       @db.Text
+  status             invoice_payment_error_status
+}
+
+model invoice_process {
+  id                   BigInt                 @id @default(autoincrement())
+  id_invoice           BigInt
+  id_seller_address    BigInt
+  status               invoice_process_status
+  note                 String                 @db.Text
+  no_resi              String                 @db.VarChar(100)
+  delivery_progress    String                 @db.Text
+  date_processing      DateTime               @default(now()) @db.Timestamp(0)
+  date_modified        DateTime               @default(now()) @db.Timestamp(0)
+  last_update_delivery DateTime               @default(now()) @db.DateTime(0)
+}
+
+model invoice_process_error {
+  id                 BigInt                       @id @default(autoincrement())
+  id_invoice_process BigInt
+  description        String                       @db.Text
+  status             invoice_process_error_status
+}
+
+model invoice_product {
+  id                          BigInt  @id @default(autoincrement())
+  id_invoice                  BigInt
+  id_invoice_process          BigInt
+  id_product                  BigInt
+  product_options             String  @db.Text
+  qty                         Int
+  harga                       Int
+  subtotal                    Int
+  berat                       Decimal @db.Decimal(10, 0)
+  catatan                     String  @db.Text
+  id_seller_address           BigInt  @default(0)
+  available_shipping_services String  @db.Text
+  selected_shipping           String  @db.Text
+  shipping_cost               Int     @default(0)
+}
+
+model log_error {
+  id         Int    @id @default(autoincrement())
+  keterangan String @db.Text
+  end_point  String @db.Text
+}
+
+model log_payment_callback {
+  id         Int    @id @default(autoincrement())
+  vendor     String @db.VarChar(100)
+  payload    String @db.Text
+  status     String @db.VarChar(50)
+  keterangan String @db.Text
+}
+
+model log_query {
+  id         BigInt   @id @default(autoincrement())
+  type       String   @db.VarChar(50)
+  query_data String   @db.Text
+  date_add   DateTime @db.DateTime(0)
+}
+
+model log_virtual_account {
+  id         BigInt @id @default(autoincrement())
+  vendor     String @db.VarChar(50)
+  payload    String @db.Text
+  status     String @db.VarChar(50)
+  keterangan String @db.Text
+}
+
+model master_kabupaten {
+  id          Int    @id
+  id_provinsi Int
+  nama        String @db.VarChar(50)
+}
+
+model master_kecamatan {
+  id           Int    @id
+  id_provinsi  Int
+  id_kabupaten Int
+  nama         String @db.VarChar(50)
+}
+
+model master_provinsi {
+  id   Int    @id @default(autoincrement())
+  nama String @db.VarChar(50)
+}
+
+model master_shipping_courrier {
+  id                          Int    @id @default(autoincrement())
+  nama                        String @db.VarChar(100)
+  id_master_shipping_provider Int
+  status                      Int
+  image                       String @db.Text
+}
+
+model master_shipping_provider {
+  id       Int    @id @default(autoincrement())
+  nama     String @db.VarChar(100)
+  status   Int
+  base_url String @db.VarChar(255)
+}
+
+model recap_transactions {
+  id                    Int      @id @default(autoincrement())
+  id_seller             Int
+  jumlah_invoice        Int
+  total_tagihan_invoice Int
+  total_admin_fee       Int
+  last_invoice          Int
+  list_customer         String   @db.Text
+  tgl_update            DateTime @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model seller {
+  id                  Int      @id @default(autoincrement())
+  email               String?  @db.VarChar(50)
+  google_identifier   String?  @db.VarChar(255)
+  facebook_identifier String?  @db.VarChar(255)
+  facebook_profile    String   @db.Text
+  phone               String?  @db.VarChar(50)
+  caller_id           String   @db.VarChar(5)
+  country_code        String   @db.VarChar(5)
+  is_store_user       Boolean  @default(false)
+  is_builder_user     Boolean  @default(false)
+  password            String?  @db.VarChar(255)
+  tgl_created         DateTime @db.DateTime(0)
+  is_active           Int      @default(1)
+  name                String?  @db.VarChar(50)
+  logo                String   @db.Text
+  photo               String   @db.Text
+  id_province         Int?
+  id_city             Int?
+  id_district         Int?
+  address             String?  @db.VarChar(255)
+  deskripsi           String   @db.Text
+  socmed              String   @db.Text
+  product_type        Int?
+  hc                  Int?     @default(0)
+  is_testing          Int      @default(0)
+  email_verified      Int      @default(0)
+  phone_verified      Int      @default(0)
+}
+
+model seller_address {
+  id                BigInt   @id @default(autoincrement())
+  id_seller         BigInt
+  id_district       Int
+  address           String   @db.Text
+  shipping_services String   @db.VarChar(255)
+  is_primary        Int
+  is_active         Int      @default(1)
+  tgl_add           DateTime @db.DateTime(0)
+  tgl_modified      DateTime @db.DateTime(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model seller_notification {
+  id            BigInt
+  id_seller     BigInt
+  title         String   @db.VarChar(255)
+  message       String   @db.Text
+  seen          Int      @default(0) @db.TinyInt
+  date_added    DateTime @db.DateTime(0)
+  date_modified DateTime @db.DateTime(0)
+
+  @@ignore
+}
+
+model seller_product {
+  id                BigInt   @id @default(autoincrement())
+  id_seller         BigInt
+  id_category       BigInt   @default(0)
+  id_address        BigInt   @default(0)
+  id_from_hc        BigInt
+  shipping_services String   @db.VarChar(255)
+  code              String   @db.VarChar(255)
+  stock             Int      @default(0)
+  nama              String   @db.VarChar(255)
+  price             Int
+  berat             Int
+  deskripsi         String   @db.Text
+  product_options   String   @db.Text
+  allow_reseller    Int      @default(0) @db.TinyInt
+  is_active         Int
+  tgl_add           DateTime @db.DateTime(0)
+  tgl_modified      DateTime @db.DateTime(0)
+}
+
+model seller_product_hc {
+  id                          Int      @id @default(autoincrement())
+  last_id_product_from_hc     Int      @default(0)
+  last_id_product_from_felio  Int      @default(0)
+  last_id_category_from_hc    Int      @default(0)
+  last_id_category_from_felio Int      @default(0)
+  last_sync_product_hc        DateTime @db.DateTime(0)
+  last_sync_product_felio     DateTime @db.DateTime(0)
+  last_sync_category_hc       DateTime @db.DateTime(0)
+  last_sync_category_felio    DateTime @db.DateTime(0)
+}
+
+model seller_product_hc_history {
+  id          BigInt                              @id @default(autoincrement())
+  data_sync   String                              @db.Text
+  images_sync String                              @db.Text
+  sync_from   seller_product_hc_history_sync_from @default(HC)
+  status      seller_product_hc_history_status    @default(SUCCESS)
+  message     String                              @db.Text
+  date_synced DateTime                            @db.DateTime(0)
+}
+
+model seller_product_images {
+  id             BigInt   @id @default(autoincrement())
+  id_seller      BigInt
+  id_product     BigInt
+  id_from_hc     BigInt   @default(0)
+  original_image String   @db.VarChar(255)
+  thumb_image    String   @db.VarChar(255)
+  image_order    Int
+  tgl_add        DateTime @db.DateTime(0)
+  tgl_modified   DateTime @db.DateTime(0)
+}
+
+model seller_product_rating {
+  id          BigInt   @id @default(autoincrement())
+  id_invoice  BigInt
+  id_product  BigInt
+  id_customer BigInt
+  star        Int
+  review      String   @db.Text
+  images      String   @db.Text
+  tgl_add     DateTime @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model seller_verification {
+  id        BigInt @id @default(autoincrement())
+  type      String @db.VarChar(50)
+  id_seller BigInt
+  otp_code  String @db.Text
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model shop_brand {
+  id                 BigInt   @id @default(autoincrement())
+  id_seller          BigInt
+  id_template        Int      @default(0)
+  name               String   @db.VarChar(100)
+  brand_links        String   @db.Text
+  phone              String   @db.VarChar(100)
+  brand_title        String   @db.VarChar(255)
+  brand_description  String   @db.Text
+  text_color         String   @db.VarChar(50)
+  logo               String   @db.Text
+  logo_circle        Int      @default(1)
+  cover_image        String   @db.VarChar(255)
+  domain             Int      @default(1)
+  domain_name        String   @db.VarChar(100)
+  is_domain_active   Int      @default(0)
+  domain_check       Int
+  domain_error       String   @db.Text
+  is_active          Int      @default(1)
+  tgl_add            DateTime @db.DateTime(0)
+  tgl_update         DateTime @db.DateTime(0)
+  tgl_updated_domain DateTime @db.DateTime(0)
+}
+
+model shop_cart {
+  id           BigInt   @id @default(autoincrement())
+  id_brand     BigInt
+  id_customer  BigInt   @default(0)
+  id_guest     BigInt   @default(0)
+  tgl_add      DateTime @db.DateTime(0)
+  tgl_modified DateTime @db.DateTime(0)
+}
+
+model shop_cart_detail {
+  id              BigInt   @id @default(autoincrement())
+  id_cart         BigInt
+  id_product      BigInt
+  qty             BigInt
+  price           Int
+  price_option    Int?
+  product_options String   @db.Text
+  tgl_add         DateTime @db.DateTime(0)
+  tgl_modified    DateTime @db.DateTime(0)
+}
+
+model shop_categories {
+  id         BigInt @id @default(autoincrement())
+  id_seller  BigInt
+  id_from_hc BigInt @default(0)
+  code       String @db.VarChar(100)
+  name       String @db.VarChar(100)
+  is_active  Int
+  is_special Int
+  cat_order  Int
+}
+
+model shop_category_special {
+  id          BigInt   @id @default(autoincrement())
+  id_category BigInt
+  id_product  BigInt
+  tgl_add     DateTime @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model shop_domain_history {
+  id            BigInt   @id @default(autoincrement())
+  id_seller     BigInt
+  domain        Int      @default(0)
+  domain_name   String   @db.VarChar(100)
+  domain_status Int      @default(0)
+  domain_error  String   @db.Text
+  date_add      DateTime @default(now()) @db.DateTime(0)
+  date_update   DateTime @default(now()) @db.DateTime(0)
+}
+
+model shop_product_specification {
+  id               BigInt   @id @default(autoincrement())
+  id_product       BigInt
+  id_seller        BigInt
+  title            String   @db.VarChar(50)
+  spec_description String   @db.Text
+  tgl_add          DateTime @db.DateTime(0)
+  tgl_modified     DateTime @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model shop_settings {
+  id                    BigInt   @id @default(autoincrement())
+  id_seller             BigInt
+  id_brand              BigInt
+  order_processing_time Int
+  date_add              DateTime @default(now()) @db.Timestamp(0)
+  date_update           DateTime @default(now()) @db.DateTime(0)
+}
+
+model shop_shipping_services {
+  id                BigInt   @id @default(autoincrement())
+  shipping_services String   @db.Text
+  id_address        BigInt
+  tgl_add           DateTime @db.DateTime(0)
+  tgl_edit          DateTime @db.DateTime(0)
+}
+
+model shop_template {
+  id            BigInt   @id @default(autoincrement())
+  id_categories String   @db.Text
+  name          String   @db.VarChar(100)
+  code          String   @db.VarChar(100)
+  thumbnail     String   @db.Text
+  url_preview   String   @db.Text
+  price         String   @db.Text
+  used          Int
+  previewed     Int
+  is_active     Int
+  tgl_add       DateTime @db.DateTime(0)
+  tgl_modified  DateTime @db.DateTime(0)
+}
+
+model shop_template_categories {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+}
+
+model shop_template_history {
+  id          BigInt   @id @default(autoincrement())
+  id_seller   BigInt
+  id_template BigInt
+  date_use    DateTime @db.DateTime(0)
+}
+
+model social_login {
+  id            BigInt   @id @default(autoincrement())
+  provider      String   @db.VarChar(255)
+  data_login    String   @db.Text
+  token         String   @db.Text
+  is_consumed   Int
+  date_added    DateTime @db.DateTime(0)
+  date_modified DateTime @db.DateTime(0)
+}
+
+model user_token {
+  id         BigInt   @id @default(autoincrement())
+  id_user    BigInt
+  role       String   @db.VarChar(30)
+  token      String   @db.Text
+  time_added DateTime @db.DateTime(0)
+  action     String   @db.VarChar(100)
+}
+
+model virtual_account {
+  id                      BigInt   @id @default(autoincrement())
+  code_bank               String   @db.VarChar(100)
+  id_customer             BigInt
+  va_code                 String   @db.VarChar(100)
+  account_number          String   @db.VarChar(100)
+  xendit_payment_request  String   @db.Text
+  xendit_payment_response String   @db.Text
+  status                  String   @db.VarChar(100)
+  tgl_add                 DateTime @db.DateTime(0)
+  tgl_edit                DateTime @db.DateTime(0)
+  expiration_date         DateTime @db.DateTime(0)
+  hc                      Int      @default(1)
+}
+
+model voucher {
+  id           BigInt   @id @default(autoincrement())
+  tipe         String   @db.VarChar(50)
+  id_seller    BigInt
+  id_customer  BigInt
+  deskripsi    String   @db.Text
+  nominal      Int
+  max_used     Int
+  used_count   Int      @default(0)
+  is_available Int      @default(1)
+  date_start   DateTime @db.DateTime(0)
+  date_end     DateTime @db.DateTime(0)
+  tgl_created  DateTime @db.DateTime(0)
+  tgl_modified DateTime @db.DateTime(0)
+}
+
+model withdraw_request {
+  id        BigInt   @id @default(autoincrement())
+  id_seller BigInt
+  nominal   Int
+  status    String   @db.VarChar(255)
+  tgl_add   DateTime @db.DateTime(0)
+  tgl_edit  DateTime @db.DateTime(0)
+}
+
+enum agent_package_prices_period {
+  M1
+  M3
+  M6
+  M12
+  M18
+  M24
+}
+
+enum agent_member_status {
+  ACTIVE
+  BANNED
+}
+
+enum agent_registration_page_status {
+  ACTIVE
+  NOT_ACTIVE @map("NOT-ACTIVE")
+}
+
+enum seller_product_hc_history_sync_from {
+  HC
+  FELIO
+}
+
+enum invoice_process_status {
+  WAITING
+  REJECTED
+  SENT
+  DELIVERED
+  ACCEPTED
+}
+
+enum agent_product_commission_commission_type {
+  FLAT
+  PERCENTAGE
+}
+
+enum invoice_process_error_status {
+  ISSUE
+  FIXED
+  CHECKING
+}
+
+enum chat_room_type {
+  Group
+  Direct
+}
+
+enum chat_user_role {
+  Guest
+  Seller
+  Customer
+  CS
+}
+
+enum seller_product_hc_history_status {
+  SUCCESS
+  FAILED
+}
+
+enum agent_level_status {
+  ACTIVE
+  NOT_ACTIVE @map("NOT-ACTIVE")
+  DELETED
+}
+
+enum invoice_payment_error_status {
+  ISSUE
+  FIXED
+  CHECKING
+}
+
+enum agent_member_merchant_status {
+  REGISTERED
+  EXPIRED
+  APPROVED
+  BANNED
+}
+
+enum agent_product_commission_status {
+  ACTIVE
+  NOT_ACTIVE
+  DELETED
+}
