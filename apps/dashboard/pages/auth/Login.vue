@@ -30,8 +30,14 @@ const getdataGuest = computed(() => {
 const agentBrand = ref<AgentBrand | null>();
 const agentRegistrationPage = ref<AgentRegistrationType>();
 const brandCode = ref<string>("");
+const isAiContentUser = ref<boolean>(false);
 
 onMounted(async () => {
+  const authRedirect = localStorage.getItem(storageNames.authRedirect as string);
+  console.log('authRedirect', authRedirect)
+  if (authRedirect === 'AI-CONTENT') {
+    isAiContentUser.value = true;
+  }
   const merchantPage = route.query.merchantPage as string;
   if (merchantPage) {
     brandCode.value = merchantPage;
@@ -108,7 +114,7 @@ const onBoard = (
   localStorage.removeItem(storageNames.merchantCode as string);
 
   if (isEmployee) {
-    localStorage.setItem(storageNames.authRedirect, "STORE");
+    localStorage.setItem(storageNames.authRedirect as string, "STORE");
   }
 
   window.location.href =
@@ -153,6 +159,7 @@ const onBoard = (
       :agentRegistrationPage="agentRegistrationPage"
       :merchant-code="brandCode"
       :is-preview="false"
+      :isAiContentUser="isAiContentUser"
       :onBoard="onBoard"
     />
   </div>

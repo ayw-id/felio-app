@@ -27,6 +27,37 @@
       <Card class="m-4">
         <template #content>
           <div class="text-center">
+            <h3 class="text-left">#FelioAI</h3>
+            <p class="text-left mb-1">
+              🚀 Tersedia beragam AI model untuk bikin gambar dan video dengan AI
+            </p>
+            <p class="text-left mb-1">
+              🚀 Generate gambar mulai dari Rp.300 dan video mulai dari Rp.2000
+            </p>
+            <p class="text-left mb-1">
+              🚀 Biaya kredit masih mahal, bisa coba pake freepik API. Hanya Rp.35,000 perbulan, gratis generate sebanyak-banyaknya
+            </p>
+            <p class="text-left">
+              🎯 Cocok buat content creator, affilator, hingga business owner
+            </p>
+            <Button
+              label="Masuk Sekarang"
+              class="w-full lg:w-8 my-2"
+              style="background-color: black"
+              severity="info"
+              rounded
+              size="large"
+              @click="goTo(ServiceType.aiContent)"
+            ></Button>
+          </div>
+        </template>
+      </Card>
+    </div>
+
+    <div class="col-12 xl:col-5">
+      <Card class="m-4">
+        <template #content>
+          <div class="text-center">
             <h3 class="text-left">#FelioBuilder</h3>
             <p class="text-left mb-1">
               🚀 Bikin website profesional tanpa coding
@@ -197,6 +228,7 @@ const dataAuth = ref<authType | null>(null);
 const isLoading = ref<boolean>(true);
 
 const goTo = async (service: ServiceType): Promise<void> => {
+  console.log('service', service);
   if (!dataTempAuth.value?.token && !dataAuth.value) {
     localStorage.removeItem(storageNames.tempSellerToken as string);
     window.location.href = runtimeConfig.public.baseUrl + "auth/login";
@@ -218,7 +250,7 @@ const goTo = async (service: ServiceType): Promise<void> => {
         );
       }
       localStorage.removeItem(storageNames.tempSellerToken as string);
-      localStorage.removeItem(storageNames.authRedirect);
+      localStorage.removeItem(storageNames.authRedirect as string);
 
       handleRedirect(service, JSON.stringify(response.data?.serviceToken));
     }
@@ -226,6 +258,7 @@ const goTo = async (service: ServiceType): Promise<void> => {
 };
 
 const handleRedirect = (service: ServiceType, tokenJSON = "") => {
+  console.log('handleRedirect');
   if (service === ServiceType.websiteBuilder) {
     if (tokenJSON) {
       localStorage.setItem(storageNames.builderToken as string, tokenJSON);
@@ -250,9 +283,9 @@ const handleRedirect = (service: ServiceType, tokenJSON = "") => {
     window.location.href = `${runtimeConfig.public.rootUrl}resto/`;
   } else if (service === ServiceType.aiContent) {
     if (tokenJSON) {
-      localStorage.setItem(storageNames.contentToken as string, tokenJSON);
+      localStorage.setItem(storageNames.aiContentToken as string, tokenJSON);
     }
-    window.location.href = `${runtimeConfig.public.rootUrl}ai-content/`;
+    window.location.href = `${runtimeConfig.public.rootUrl}ai-content/dashboard/`;
   }
 };
 

@@ -34,6 +34,7 @@ const props = defineProps<{
   agentBrand?: AgentBrand | null;
   agentRegistrationPage?: AgentRegistrationType;
   merchantCode?: string;
+  isAiContentUser?: boolean;
   onBoard: (
     token: authType,
     tokenGuest: authType | null,
@@ -451,7 +452,7 @@ onMounted(() => {
         shape="circle"
       />
 
-      <div class="flex flex-row mt-4">
+      <div v-if="!isAiContentUser" class="flex flex-row mt-4">
         <Button
           label="Pemilik Bisnis"
           class="py-3 text-xl mx-1 mb-2"
